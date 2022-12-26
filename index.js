@@ -5,7 +5,13 @@ const app = express();
 const port = 8000;
 
 app.get('/', (req, res) => {
-    res.send(`Hello World!`);
+    const sql = `SELECT * FROM student`;
+    db.query(sql, (error, result) => {
+        if (error) throw error;
+        const data = JSON.parse(JSON.stringify(result));
+        // console.log(data);
+        // res.send(data);
+    }); 
 });
 
 app.listen(port, () => {
