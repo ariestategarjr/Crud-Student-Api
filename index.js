@@ -21,12 +21,13 @@ app.get('/student', (req, res) => {
     }); 
 });
 
-app.get('/search', (req, res) => {
-    const sql = `SELECT nama, kelas, alamat FROM student WHERE nim = ${req.query.nim}`;
+app.get('/student/:nim', (req, res) => {
+    const nim = req.params.nim;
+    const sql = `SELECT * FROM student WHERE nim = ${nim}`;
     db.query(sql, (error, result) => {
         if (error) throw error;
         const data = JSON.parse(JSON.stringify(result));
-        response(200, data, 'search data by nim', res);
+        response(200, data, "get data by nim", res);
     });
 });
 
