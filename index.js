@@ -3,10 +3,10 @@ const db = require('./connection');
 const bodyParser = require('body-parser');
 const response = require('./response');
 const app = express();
-const port = 8000;
+const port = 5000;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
     const sql = `SELECT * FROM student`;
@@ -18,12 +18,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/search', (req, res) => {
-    const sql = `SELECT alamat FROM student WHERE nim = ${req.body.nim}`;
+    const sql = `SELECT nama, kelas, alamat FROM student WHERE nim = ${req.query.nim}`;
     db.query(sql, (error, result) => {
         if (error) throw error;
-        // const data = JSON.parse(JSON.stringify(result));
-        // console.log(result);
-        response(200, result, 'search alamat by name', res);
+        const data = JSON.parse(JSON.stringify(result));
+        response(200, data, 'search data by nim', res);
     });
 });
 
