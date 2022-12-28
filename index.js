@@ -61,6 +61,20 @@ app.put('/student', (req, res) => {
     });
 });
 
+app.delete('/student', (req, res) => {
+    const { nim } = req.body;
+    const sql = `DELETE FROM student WHERE nim = ${nim}`;
+    db.query(sql, (error, result) => {
+        if (error) response(500, "error", "update data invalid", res);
+        if (result?.affectedRows) {
+            const data = {
+                isSuccess: result.affectedRows
+            }
+            response(200, data, "delete data ok", res);
+        }
+    });
+});
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
