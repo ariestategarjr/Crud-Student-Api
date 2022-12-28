@@ -46,6 +46,21 @@ app.post('/student', (req, res) => {
     });
 });
 
+app.put('/student', (req, res) => {
+    const { nim, nama, kelas, alamat } = req.body;
+    const sql = `UPDATE student SET nama = '${nama}', kelas = '${kelas}', alamat = '${alamat}' WHERE nim = ${nim}`;
+    db.query(sql, (error, result) => {
+        if (error) response(500, "error", "update data invalid", res);
+        if (result?.affectedRows) {
+            const data = {
+                isSuccess: result.affectedRows,
+                message: result.message
+            }
+            response(200, data, "update data ok", res);
+        }        
+    });
+});
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
