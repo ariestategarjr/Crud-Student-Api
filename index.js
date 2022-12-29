@@ -41,7 +41,7 @@ app.post('/student', (req, res) => {
                 isSuccess: result.affectedRows,
                 id: result.insertId
             };
-            response(200, data, "insert data ok", res);
+            response(200, data, "insert data success", res);
         }
     });
 });
@@ -55,7 +55,7 @@ app.put('/student', (req, res) => {
                 isSuccess: result.affectedRows,
                 message: result.message
             }
-            response(200, data, "update data ok", res);
+            response(200, data, "update data success", res);
         } else {
             response(500, "error", "update data invalid", res);
         }        
@@ -70,7 +70,7 @@ app.delete('/student', (req, res) => {
             const data = {
                 isSuccess: result.affectedRows
             }
-            response(200, data, "delete data ok", res);
+            response(200, data, "delete data success", res);
         } else {
             response(500, "error", "delete data invalid", res);
         }
